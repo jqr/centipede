@@ -1,9 +1,12 @@
 class Window < Gosu::Window
-  attr_accessor :sounds, :images
-  
+  attr_accessor :sounds, :images, :level
+
+  TILE_SIZE = 16   
+
   def initialize
     # double size
     super(480, 512, false)
+    self.level = Level.new(self, width/TILE_SIZE, height/TILE_SIZE, TILE_SIZE)
     GosuExtras::setup_keyboard_constants(self)
     load_sounds
     load_images
