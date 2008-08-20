@@ -1,4 +1,8 @@
 class Assets
+
+  def initialize(window)
+    @window = window
+  end
   
   def self.asset_dirs
     @asset_directories
@@ -12,20 +16,22 @@ class Assets
   add_asset_dir(File.join(GAME_DIR, "images", "centipede"))
   
 
-  def self.preload
-    self.asset_dirs.each do |d|
+  def preload
+    Assets.asset_dirs.each do |d|
       Dir.entries(d).each do |f|
         rpath = File.join(d, f)
         unless File.directory?(rpath)
           @assets ||= { }
-          @assets[f] = File.read(rpath)
+          @assets[f] = Gosu::Image.new(@window, rpath)
+          Centipede.logger.info("Loaded #{rpath}")
+          puts "Foo"
         end
       end
     end
   end
 
-  def self.by_name(name)
+  def by_name(name)
     @assets[name]
   end
-  
+
 end
