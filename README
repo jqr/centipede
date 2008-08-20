@@ -13,5 +13,7 @@ gem install gosu
 # then run the centipede executable
 bin/centipede
 
-#BAM!
-=======
+Development
+===========
+Ruby Gosu docs:
+  http://code.google.com/p/gosu/wiki/RubyReference
