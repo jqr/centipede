@@ -10,7 +10,7 @@ class Window < Gosu::Window
   
   def load_sounds
     self.sounds = {}
-    Dir.glob(File.join(RESOURCE_PATH, 'sounds', '*')).each do |file|
+    Dir.glob(File.join(GAME_DIR, 'sounds', '*')).each do |file|
       sounds[File.basename(file, '.wav')] = Gosu::Sample.new(self, file)
     end
   end
