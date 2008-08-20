@@ -4,7 +4,6 @@ require 'logger'
 
 $: << File.join(File.dirname(__FILE__))
 require 'centipede/gosu_extras'
-require 'centipede/assets'
 require 'centipede/window'
 require 'centipede/enemy'
 require 'centipede/enemy/spider'

@@ -24,7 +24,6 @@ class Assets
           @assets ||= { }
           @assets[f] = Gosu::Image.new(@window, rpath)
           Centipede.logger.info("Loaded #{rpath}")
-          puts "Foo"
         end
       end
     end
