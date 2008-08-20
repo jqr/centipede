@@ -2,6 +2,7 @@ class Window < Gosu::Window
   def initialize
     # double size
     super(480, 512, false)
+    GosuExtras::setup_keyboard_constants(self)
   end
   
   def button_down(id)
