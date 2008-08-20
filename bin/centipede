@@ -2,4 +2,9 @@
 GAME_DIR = File.join(File.dirname(__FILE__), "..")
 $: << File.join(GAME_DIR, "lib")
 require "centipede"
-Centipede.run
+unless ARGV[0] == "console"
+  Centipede.run
+else
+  require 'irb'
+  ARGV.shift; IRB.start
+end
