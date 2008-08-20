@@ -1,0 +1,14 @@
+Centipede
+=========
+
+A simple implementation of the classic Centipede game.
+
+
+Running
+=======
+
+# you'll need the gosu gem
+gem install gosu
+
+# then run the centipede executable
+bin/centipede
