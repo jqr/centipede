@@ -1,3 +1,6 @@
+require 'enemy'
+require 'enemy/spider'
+
 class Window < Gosu::Window
   attr_accessor :sounds
   
@@ -25,6 +28,7 @@ class Window < Gosu::Window
   end
   
   def draw
+    Enemy::Spider.new(self, 240, 256).draw
   end
   
   def button_down(id)
