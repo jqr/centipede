@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-
-require File.join(File.dirname(__FILE__), '..', 'lib', 'centipede')
-
+$: << File.join(File.dirname(__FILE__), "..", "lib")
+require "centipede"
 Centipede.run
