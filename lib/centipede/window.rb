@@ -1,11 +1,12 @@
 class Window < Gosu::Window
-  attr_accessor :sounds
+  attr_accessor :sounds, :images
   
   def initialize
     # double size
     super(480, 512, false)
     GosuExtras::setup_keyboard_constants(self)
     load_sounds
+    load_images
   end
   
   def load_sounds
@@ -13,6 +14,11 @@ class Window < Gosu::Window
     Dir.glob(File.join(GAME_DIR, 'sounds', '*')).each do |file|
       sounds[File.basename(file, '.wav')] = Gosu::Sample.new(self, file)
     end
+  end
+
+  def load_images
+    self.images = Assets.new(self)
+    self.images.preload
   end
 
   def play_sound(sound)
