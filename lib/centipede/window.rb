@@ -10,6 +10,9 @@ class Window < Gosu::Window
     GosuExtras::setup_keyboard_constants(self)
     load_sounds
     @spider = Enemy::Spider.new(self, 240, 256)  
+    load_images
+
+    @player = Player.new(self)
   end
   
   def load_sounds
@@ -27,16 +30,20 @@ class Window < Gosu::Window
   
   def update
     @spider.update
+    @player.update
   end
-  
+
   def draw
     @spider.draw
+    @player.draw
   end
   
   def button_down(id)
     case id
     when Gosu::Button::KbEscape
       close
+    when Gosu::Button::MsLeft, Gosu::Button::KbSpace
+      @player.shoot
     end
   end
 end

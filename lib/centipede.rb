@@ -8,7 +8,7 @@ require 'centipede/window'
 require 'centipede/enemy'
 require 'centipede/enemy/spider'
 require 'centipede/level'
-
+require 'centipede/player'
 
 class Centipede
 
