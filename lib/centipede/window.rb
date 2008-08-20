@@ -1,6 +1,3 @@
-require 'enemy'
-require 'enemy/spider'
-
 class Window < Gosu::Window
   attr_accessor :sounds
   
