@@ -1,5 +1,4 @@
 require 'rubygems'
-gem 'gosu'
 require 'gosu'
 
 $: << File.join(File.dirname(__FILE__))
