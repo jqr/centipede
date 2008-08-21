@@ -3,7 +3,7 @@ class Enemy::Spider < Enemy
   attr_accessor :jumping, :standing, :landing
   
   def initialize(window, x, y)
-    self.jumping, self.standing, self.landing = Gosu::Image.load_tiles(window, "images/spider.png", 15, 8, false)
+    self.jumping, self.standing, self.landing = Gosu::Image.load_tiles(window, File.join(GAME_DIR, 'images', 'spider.png'), 15, 8, false)
     @current_sprite = jumping
     @wait = 0
     super

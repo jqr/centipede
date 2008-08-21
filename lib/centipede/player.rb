@@ -1,6 +1,6 @@
 class Player
   def initialize(window)
-    @image = Gosu::Image.new(window, "../images/player.png")
+    @image = Gosu::Image.new(window, File.join(GAME_DIR, 'images', 'player.png'))
     @x = window.width/2
     @y = window.height - 50
     @window = window
