@@ -34,5 +34,12 @@ class Shot
       Game.current_game.level.grid[grid_y][grid_x] = health > 0 ? health : nil 
       Game.current_game.remove_shot
     end
+    
+    Game.current_game.enemies.each do |enemy|
+      if enemy.collides_with?(@x, @y)
+        enemy.hit
+        Game.current_game.remove_shot
+      end
+    end
   end
 end

@@ -34,7 +34,11 @@ class Enemy::Spider < Enemy
       next_sprite
     end
     @current_sprite.draw(x, y, Z_ORDER, 2, 2)
-  end 
+  end
+  
+  def sprite
+    @current_sprite
+  end
   
   def next_sprite
     @current_sprite = 
@@ -111,4 +115,9 @@ class Enemy::Spider < Enemy
       end
     end
   end
+  
+  def hit
+    destroy
+  end
+  
 end

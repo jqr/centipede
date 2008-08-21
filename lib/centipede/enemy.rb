@@ -37,5 +37,13 @@ class Enemy
   def grid_y
     y / Game.current_game.level.tile_size
   end
+  
+  def collides_with?(x, y)
+    (self.x..(self.x + sprite.width * 2)).include?(x) && (self.y..(self.y + sprite.height * 2)).include?(y)
+  end
+
+  def destroy
+    Game.current_game.enemies.reject! { |e| e == self }
+  end
 
 end
