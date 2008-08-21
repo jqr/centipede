@@ -10,6 +10,7 @@ require 'centipede/enemy/spider'
 require 'centipede/level'
 require 'centipede/player'
 require 'centipede/game'
+require 'centipede/shot'
 
 class Centipede
 
