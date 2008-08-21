@@ -16,7 +16,7 @@ class Level
   
   def add_initial_mushrooms
     25.times do
-      grid[rand(columns)][rand(rows)] = 4
+      grid[[1, rand(columns)].max][rand(rows)] = 4
     end
   end
   
