@@ -15,7 +15,7 @@ class Enemy::Centipede < Enemy
     self.moving_right = true
     self.segments = []
     1.upto(segment_size) do |i|
-      self.segments << Segment.new(window, self, segment_size - (i - 1) * 8, 0)
+      self.segments << Segment.new(window, self, (segment_size - (i + 1)) * 8, 0)
     end
     self.last_move = 0
   end
