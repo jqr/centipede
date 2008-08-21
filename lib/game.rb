@@ -13,7 +13,7 @@ require 'centipede/player'
 require 'centipede/shot'
 
 class Game
-  attr_accessor :score, :player, :enemies, :shots, :level, :centipedes
+  attr_accessor :score, :player, :enemies, :shot, :level, :centipedes
 
   TILE_SIZE = 16
 
@@ -39,10 +39,8 @@ class Game
 
     self.player= player
     self.enemies = []
-    self.shots = []
     self.score = 0
     Game.current_game = self
-    @shots = []
     self.centipedes = [Enemy::Centipede.new(@window)]
   end
 
@@ -70,39 +68,29 @@ class Game
   def run(ts=nil)
     ts ||= Time.now
     if self.in_play?
-      self.shots.each do |s|
-        s.update(ts)
-      end
       self.enemies.each do |e|
         e.update(ts)
       end
+      shot.update(ts) if shot
       self.player.update(ts)
-      self.shots.each do |s|
-        s.update(ts)
-      end
     end
   end
 
   def draw
     level.draw
-    self.shots.each do |s|
-      s.draw
-    end
+    shot.draw if shot
     self.enemies.each do |e|
       e.draw
     end
     self.player.draw
-    self.shots.each do |s|
-      s.draw
-    end
   end
   
-  def add_shot(x,y)
-    @shots.unshift(Shot.new(@window,x,y))
+  def add_shot(x, y)
+    self.shot = Shot.new(@window, x, y) unless shot
   end
 
-  def remove_shot(shot)
-    @shots.reject! { |s| s == shot }
+  def remove_shot
+    self.shot = nil
   end
 
   def remove(*objs)

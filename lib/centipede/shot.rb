@@ -16,7 +16,7 @@ class Shot
     @y = @y - 1
 
     if @y < -6
-      Game.current_game.remove_shot self
+      Game.current_game.remove_shot
     end
   end
 end
