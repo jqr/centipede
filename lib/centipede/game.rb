@@ -10,6 +10,7 @@ class Game
     @start_time = nil
     @end_time = nil
     @window = window
+    self.player= player
     self.enemies = []
     Game.current_game = self
   end
