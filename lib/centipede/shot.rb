@@ -22,14 +22,15 @@ class Shot
       Game.current_game.remove_shot
     end
     
-    check_for_hit(@x, @y, 2, 7) 
+    check_for_hit_on_enemies(@x, @y, 2, 7) ||
+      check_for_hit_on_mushrooms(@x, @y, 2, 7)
   end
   
   def off_screen?
     @y < -6
   end
   
-  def check_for_hit(x, y, steps = 0, step_size = 7)
+  def check_for_hit_on_enemies(x, y, steps = 0, step_size = 7)
     Game.current_game.enemies.each do |enemy|
       enemy_hit = false
       for i in (0..steps)
@@ -44,7 +45,9 @@ class Shot
         return true
       end
     end
+  end
 
+  def check_for_hit_on_mushrooms(x, y, steps = 0, step_size = 7)
     for i in (0..steps)
       grid_x, grid_y = x / 16, (y + i * step_size) / 16
       if Game.current_game.level.grid[grid_y]
