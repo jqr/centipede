@@ -21,8 +21,8 @@ class Shot
     end
     
     check_for_hit(@x, @y) ||
-    check_for_hit(@x, @y - 7) ||
-    check_for_hit(@x, @y - 14)
+    check_for_hit(@x, @y + 7) ||
+    check_for_hit(@x, @y + 14)
   end
   
   def off_screen?
