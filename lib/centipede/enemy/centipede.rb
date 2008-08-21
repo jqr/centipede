@@ -4,14 +4,14 @@ class Enemy::Centipede < Enemy
 
   def initialize(window, segment_size = 11)
     super(window, x, y)
-    self.x = (8 * segment_size)
+    self.x = (16 * (segment_size -1))
     self.y =  0
     self.head = Gosu::Image.load_tiles(window, File.join(GAME_DIR, 'images', 'centipede', 'head.png'), 7, 8, false)
 
     @current_frame = 0
 
     @length = segment_size
-
+    @just_born = true # Protect my bebby 
     self.moving_right = true
     self.segments = []
     1.upto(segment_size) do |i|
@@ -43,16 +43,17 @@ class Enemy::Centipede < Enemy
 
   def move_right
     super
-    self.segments.each { |s| s.head_moved(:right) }    
+    self.segments.each { |s| s.head_moved(:right, @just_born) }    
   end
 
   def move_left
     super
-    self.segments.each { |s| s.head_moved(:left) }        
+    self.segments.each { |s| s.head_moved(:left) }
   end
 
   def move_down
     super
+    @just_born = false # leave the nest
     self.segments.each { |s| s.head_moved(:down) }            
   end
   
