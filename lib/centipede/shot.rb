@@ -28,18 +28,19 @@ class Shot
   end
   
   def check_for_hit
-    grid_x, grid_y = @x / 16, @y / 16
-    unless Game.current_game.level.open?(@x / 16, @y / 16)
-      health = Game.current_game.level.grid[grid_y][grid_x] - 1
-      Game.current_game.level.grid[grid_y][grid_x] = health > 0 ? health : nil 
-      Game.current_game.remove_shot
-    end
-    
     Game.current_game.enemies.each do |enemy|
       if enemy.collides_with?(@x, @y)
         enemy.hit
         Game.current_game.remove_shot
       end
     end
+
+    grid_x, grid_y = @x / 16, @y / 16
+    unless Game.current_game.level.open?(grid_x, grid_y)
+      health = Game.current_game.level.grid[grid_y][grid_x] - 1
+      Game.current_game.level.grid[grid_y][grid_x] = health > 0 ? health : nil 
+      Game.current_game.remove_shot
+    end
+
   end
 end

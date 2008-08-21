@@ -44,6 +44,5 @@ class Enemy::Flea < Enemy
     @hits += 1
     destroy if @hits == 2
   end
-  
 
 end
