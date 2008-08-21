@@ -3,9 +3,10 @@ class Enemy::Centipede < Enemy
 
   def initialize(window, segment_size=11)
     super(window, x, y)
-    self.x = 0
+    self.x = 8 * segment_size
     self.y = 0
     self.head = Gosu::Image.load_tiles(window, File.join(GAME_DIR, 'images', 'centipede', 'head.png'), 7, 8, false)
+
 
     @current_frame = 0
 
@@ -14,7 +15,7 @@ class Enemy::Centipede < Enemy
     self.moving_right = true
     self.segments = []
     1.upto(segment_size) do |i|
-      self.segments << Segment.new(window, self)
+      self.segments << Segment.new(window, self, segment_size - (i - 1) * 8, 0)
     end
     self.last_move = 0
   end
@@ -30,6 +31,7 @@ class Enemy::Centipede < Enemy
       end
       self.last_move = time
     end
+    self.segments.each { |s| s.update(time) }    
   end
 
   module Movement
@@ -93,10 +95,11 @@ class Enemy::Centipede < Enemy
   
   def draw
     self.head[@current_frame].draw(x, y, Z_ORDER, 2, 2)
+    self.segments.each { |s| s.draw }
     @current_frame += 1
     if @current_frame >= self.head.size
       @current_frame = 0
-    end    
+    end 
   end
 
 
@@ -104,15 +107,15 @@ class Enemy::Centipede < Enemy
   class Segment < Enemy
 
     def self.segment_tiles(window)
-      @segment_tiles ||= Gosu::Image.load_tiles(window, File.join(GAME_DIR, 'images', 'centipede', 'body.png'), 7, 8, false)            
+      @segment_tiles ||= Gosu::Image.load_tiles(window, File.join(GAME_DIR, 'images', 'centipede', 'body.png'), 7, 8, true)
     end
 
     attr_accessor :segment
     
-    def initialize(window, owner)
-      super(window, x, y)
-      self.x = 0
-      self.y = 0
+    def initialize(window, owner, sx, sy)
+      super(window, sx, sy)
+      self.x = sx
+      self.y = sy
       self.segment = Segment.segment_tiles(window)
       self.moving_right = true
       @current_frame = 0
@@ -127,6 +130,7 @@ class Enemy::Centipede < Enemy
     end
 
     def update(time)
+      
     end
     
     include Enemy::Centipede::Movement
@@ -138,7 +142,6 @@ class Enemy::Centipede < Enemy
         self.send move_method
       else
         self.move_down
-        self.moving_right = !self.moving_right
       end
     end
 
