@@ -38,7 +38,7 @@ class Game
     @end_time = nil
     @window = window
     @current_level = 0
-
+    self.enemies = []
     self.player= player
     self.score = 0
     Game.current_game = self
@@ -107,14 +107,20 @@ class Game
     end
   end
 
+  def add_centipede(c)
+    self.enemies << c
+    self.enemies += c.segments
+  end
+
   def next_level
-    @current_level += 1
-    self.level = Level.new(@window, @window.width / TILE_SIZE, @window.height / TILE_SIZE, TILE_SIZE, @current_level)
-    self.enemies = []
-    Game.current_game = self
-    centipede = Enemy::Centipede.new(@window)
-    self.enemies << centipede
-    self.enemies += centipede.segments
+    unless self.enemies.any? { |o| o.is_a? Centipede }
+
+      @current_level += 1
+      self.level = Level.new(@window, @window.width / TILE_SIZE, @window.height / TILE_SIZE, TILE_SIZE, @current_level)
+      self.enemies = []
+      Game.current_game = self
+      self.add_centipede(Enemy::Centipede.new(@window))
+    end
   end
 
   private
