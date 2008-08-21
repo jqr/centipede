@@ -1,5 +1,6 @@
 class Enemy::Centipede < Enemy
   
+<<<<<<< HEAD:lib/centipede/enemy/centipede.rb
   attr_accessor :head, :segment
 
   def initialize(window, segments=11)
@@ -12,9 +13,17 @@ class Enemy::Centipede < Enemy
     @current_segment_frame = 0
     @length = segments
   end
-
+  
   def update(time)
     
+  end
+
+  def can_move_right?
+    @window.game.level.open?(grid_x + 1, grid_y)
+  end
+
+  def can_move_left?
+    @window.game.level.open?(grid_x - 1, grid_y)
   end
 
   def draw
@@ -23,11 +32,10 @@ class Enemy::Centipede < Enemy
   def segment_at(x, y)
   end
 
+
   class Segment < Enemy
     def initialize(window)
       super(window, x, y)
     end
-    
   end
-  
 end

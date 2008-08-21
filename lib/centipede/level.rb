@@ -27,4 +27,9 @@ class Level
       end
     end
   end
+  
+  def open?(x, y)
+    grid[x] && grid[x][y] == 0
+  end
+  
 end
