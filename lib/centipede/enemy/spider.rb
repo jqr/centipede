@@ -22,7 +22,7 @@ class Enemy::Spider < Enemy
       @wait = 0
       @current_sprite = next_sprite
     end
-    @current_sprite.draw(x, y, 0)
+    @current_sprite.draw(x, y, 0, 2, 2)
   end 
   
   def next_sprite
