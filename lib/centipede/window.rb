@@ -1,5 +1,5 @@
 class Window < Gosu::Window
-  attr_accessor :sounds, :images, :level
+  attr_accessor :sounds, :images, :level, :sound
 
   TILE_SIZE = 16   
 
@@ -11,6 +11,7 @@ class Window < Gosu::Window
     load_sounds
     @game = Game.new(self, Player.new(self))
     @game.enemies << Enemy::Spider.new(self)  
+    self.sound = true
   end
   
   def load_sounds
@@ -21,7 +22,7 @@ class Window < Gosu::Window
   end
 
   def play_sound(sound)
-    if sounds[sound]
+    if sound && sounds[sound]
       sounds[sound].play
     end
   end
@@ -31,6 +32,7 @@ class Window < Gosu::Window
   end
 
   def draw
+    level.draw
     @game.draw()
   end
   
@@ -38,6 +40,8 @@ class Window < Gosu::Window
     case id
     when Gosu::Button::KbEscape
       close
+    when Gosu::KbS
+      self.sound = !sound
     when Gosu::Button::MsLeft, Gosu::Button::KbSpace
       @player.shoot
     end
