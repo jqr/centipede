@@ -1,7 +1,8 @@
 #!/usr/bin/env ruby
 GAME_DIR = File.join(File.dirname(__FILE__), "..")
 $: << File.join(GAME_DIR, "lib")
-require "centipede"
+require "game"
+
 unless ARGV[0] == "console"
   Game.run
 else
