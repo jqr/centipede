@@ -29,7 +29,7 @@ class Level
   end
   
   def open?(x, y)
-    x >= 0 && grid[x] && grid[x][y] == nil
+    x >= 0 && x < columns && grid[y] && grid[y][x] == nil
   end
   
 end

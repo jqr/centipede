@@ -31,11 +31,11 @@ class Enemy
   end
   
   def grid_x
-    self.x / Game.current_game.level.tile_size
+    x / Game.current_game.level.tile_size
   end
   
   def grid_y
-    self.y / Game.current_game.level.tile_size
+    y / Game.current_game.level.tile_size
   end
 
 end

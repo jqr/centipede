@@ -1,7 +1,7 @@
 class Enemy::Centipede < Enemy
   attr_accessor :head, :segments, :last_move
 
-  def initialize(window, segment_size=11)
+  def initialize(window, segment_size = 11)
     super(window, x, y)
     self.x = 8 * segment_size
     self.y = 0
@@ -35,8 +35,6 @@ class Enemy::Centipede < Enemy
   end
 
   module Movement
-    
-
     def moving_right=(b)
       @moving_right = b
     end
@@ -54,17 +52,16 @@ class Enemy::Centipede < Enemy
     end
     
     def move_right
-      self.x = self.x + 16
+      self.x = x + 16
     end
     
     def move_left
-      self.x = self.x - 16
+      self.x = x - 16
     end
     
     def move_down
       self.moving_right = !moving_right
-      self.y = self.y + 16
-
+      self.y = y + 16
     end
 
     def can_move_right?
