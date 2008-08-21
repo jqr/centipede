@@ -7,7 +7,7 @@ class Shot
 
   end
 
-  def update
+  def update(ts)
 
   end
 end

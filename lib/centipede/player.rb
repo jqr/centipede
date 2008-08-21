@@ -12,6 +12,7 @@ class Player
 
   def shoot
     @window.play_sound('shoot')
+    Game.current_game.add_shot(@x + @image.width, @y - 6)
   end
 
   def die

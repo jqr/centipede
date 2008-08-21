@@ -1,6 +1,7 @@
 class Game
   attr_accessor :score, :player, :enemies, :shots, :level
 
+
   TILE_SIZE = 16   
 
   def self.current_game
@@ -20,6 +21,7 @@ class Game
     self.shots = []
     self.score = 0
     Game.current_game = self
+    @shots = []
   end
 
   def start
@@ -53,6 +55,9 @@ class Game
         e.update(ts)
       end
       self.player.update(ts)
+      self.shots.each do |s|
+        s.update(ts)
+      end
     end
   end
 
@@ -65,6 +70,17 @@ class Game
       e.draw
     end
     self.player.draw
+    self.shots.each do |s|
+      s.draw
+    end
+  end
+  
+  def add_shot(x,y)
+    @shots.unshift(Shot.new(x,y))
+  end
+
+  def remove_shot(shot)
+    @shots.reject! { |s| s == shot }
   end
 
   def remove(*objs)
@@ -85,5 +101,5 @@ class Game
   def self.current_game=(g)
     @game = g
   end
-  
 end
+

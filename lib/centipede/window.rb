@@ -41,7 +41,7 @@ class Window < Gosu::Window
     when Gosu::KbS
       self.sound = !sound
     when Gosu::Button::MsLeft, Gosu::Button::KbSpace
-      @player.shoot
+      Game.current_game.player.shoot
     end
   end
 end
