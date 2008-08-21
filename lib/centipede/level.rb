@@ -1,9 +1,10 @@
 class Level
 
-  attr_accessor :grid, :rows, :columns, :tile_size
+  attr_accessor :grid, :rows, :columns, :tile_size, :name
 
-  def initialize(window, columns, rows, tile_size)
+  def initialize(window, columns, rows, tile_size, name)
     @window = window
+    @name = name
     self.rows = rows
     self.columns = columns
     self.tile_size = tile_size
