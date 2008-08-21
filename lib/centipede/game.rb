@@ -1,15 +1,20 @@
 class Game
+  attr_accessor :score, :player, :enemies, :shots, :level
 
-  attr_accessor :score, :player, :enemies, :shots
+  TILE_SIZE = 16   
 
   def self.current_game
     @game
   end
 
   def initialize(window, player)
+    
     @start_time = nil
     @end_time = nil
     @window = window
+
+    self.level = Level.new(@window, @window.width / TILE_SIZE, @window.height / TILE_SIZE, TILE_SIZE, "1")
+
     self.player= player
     self.enemies = []
     self.shots = []
@@ -52,6 +57,7 @@ class Game
   end
 
   def draw
+    level.draw
     self.shots.each do |s|
       s.draw
     end

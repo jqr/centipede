@@ -1,12 +1,11 @@
 class Window < Gosu::Window
-  attr_accessor :sounds, :images, :level, :sound
+  attr_accessor :sounds, :images, :sound
 
   TILE_SIZE = 16   
 
   def initialize
     # double size
     super(480, 512, false)
-    self.level = Level.new(self, width/TILE_SIZE, height/TILE_SIZE, TILE_SIZE, "1")
     GosuExtras::setup_keyboard_constants(self)
     load_sounds
     @game = Game.new(self, Player.new(self))
@@ -28,12 +27,11 @@ class Window < Gosu::Window
   end
   
   def update
-    @game.run()
+    @game.run
   end
 
   def draw
-    level.draw
-    @game.draw()
+    @game.draw
   end
   
   def button_down(id)
