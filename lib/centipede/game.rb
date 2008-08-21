@@ -1,6 +1,6 @@
 class Game
 
-  attr_accessor :score, :player, :enemies
+  attr_accessor :score, :player, :enemies, :shots
 
   def self.current_game
     @game
@@ -12,6 +12,7 @@ class Game
     @window = window
     self.player= player
     self.enemies = []
+    self.shots = []
     Game.current_game = self
   end
 
@@ -39,6 +40,9 @@ class Game
   def run(ts=nil)
     ts ||= Time.now
     if self.in_play?
+      self.shots.each do |s|
+        s.update(ts)
+      end
       self.enemies.each do |e|
         e.update(ts)
       end
@@ -47,10 +51,26 @@ class Game
   end
 
   def draw
+    self.shots.each do |s|
+      s.draw
+    end
     self.enemies.each do |e|
       e.draw
     end
     self.player.draw
+  end
+
+  def remove(*objs)
+    objs.each do |o|
+      case o
+      when Shot
+        self.shots.delete(o)
+      when Enemy
+        self.enemies.delete(o)
+      when Player
+        self.stop
+      end
+    end
   end
 
   private
