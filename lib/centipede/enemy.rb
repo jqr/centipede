@@ -27,7 +27,7 @@ class Enemy
 
   def die
     Game.current_game.score += self.class.score
-    Game.current_game.remove(self)
+    destroy
   end
   
   def grid_x
@@ -47,7 +47,7 @@ class Enemy
   end
 
   def destroy
-    Game.current_game.enemies.reject! { |e| e == self }
+    Game.current_game.remove(self)    
   end
 
 end
