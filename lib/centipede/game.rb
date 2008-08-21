@@ -76,7 +76,7 @@ class Game
   end
   
   def add_shot(x,y)
-    @shots.unshift(Shot.new(x,y))
+    @shots.unshift(Shot.new(@window,x,y))
   end
 
   def remove_shot(shot)
