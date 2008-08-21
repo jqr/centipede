@@ -1,5 +1,5 @@
 class Game
-  attr_accessor :score, :player, :enemies, :shots, :level
+  attr_accessor :score, :player, :enemies, :shots, :level, :centipedes
 
 
   TILE_SIZE = 16   
@@ -22,6 +22,7 @@ class Game
     self.score = 0
     Game.current_game = self
     @shots = []
+    self.centipedes = [Enemy::Centipede.new(@window)]
   end
 
   def start
