@@ -6,7 +6,7 @@ class Enemy::Segment < Enemy
     @segment_tiles ||= Gosu::Image.load_tiles(window, File.join(GAME_DIR, 'images', 'centipede', 'body.png'), 7, 8, true)
   end
 
-  attr_accessor :segment
+  attr_accessor :segment, :segment_index, :owner
 
   def initialize(window, owner, sx, sy, segindex)
     super(window, sx, sy)
@@ -15,8 +15,8 @@ class Enemy::Segment < Enemy
     self.segment = Segment.segment_tiles(window)
     self.moving_right = true
     @current_frame = 0
-    @segment_index = segindex
-    @owner = owner
+    self.segment_index = segindex
+    self.owner = owner
   end
   
   def draw
@@ -34,7 +34,7 @@ class Enemy::Segment < Enemy
   include Enemy::Movement
 
   def hit
-    @owner.segment_hit(@segment_index)
+    self.owner.segment_hit(self.segment_index)
   end
   
   def dependent_move(dir, force=false)

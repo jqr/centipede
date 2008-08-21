@@ -67,13 +67,13 @@ class Enemy::Centipede < Enemy
 
   def die
     super
+    destroy
     Game.current_game.next_level
   end
 
   def hit
     if self.segments.empty?
       self.die
-      Game.current_game.next_level
     else
       self.segment_hit(self.segments.size - 1)
     end    
@@ -81,18 +81,31 @@ class Enemy::Centipede < Enemy
 
   def segment_hit(i)
     new_centipede = self.segments.slice!(i, self.segments.size)
-    new_centipede.each { |s| s.die }
-    if new_centipede.size > 1 
-      c = Enemy::Centipede.new(@window, 0)
-      c.segments = new_centipede[2..new_centipede.size]
-      c.x = new_centipede[1].x
-      c.y = new_centipede[1].y
-      Game.current_game.enemies << c
+    unless new_centipede.nil? || new_centipede.empty?
+      new_centipede.first.die
+      if new_centipede.size > 1
+        c = Enemy::Centipede.new(@window, 0)
+        c.moving_right = !self.moving_right
+        c.assimilate_segments(*new_centipede[2..new_centipede.size])
+        # swap head and tail pos
+        tail_x, tail_y = c.segments.last.x, c.segments.last.y
+        c.segments.last.x, c.segments.last.y = c.x, c.y
+        c.x, c.y = tail_x, tail_y
+        Game.current_game.add_centipede(c)
+      end
     end
   end
-  
-  def hit
-    destroy
+
+  def assimilate_segments(*segs)
+    self.segments ||= []
+    self.segments += segs
+    last = self.segments.size
+    segs.each_with_index { |s, i|
+      s.segment_index = last + i
+      s.owner = self
+      s.moving_right = s.owner.moving_right
+    }
   end
+  
 
 end
