@@ -45,13 +45,9 @@ class Enemy::Spider < Enemy
           jumping
       end
   end
-<<<<<<< HEAD:lib/centipede/enemy/spider.rb
-end
-=======
   
   def move!
     self.x = rand(@window.width)
     self.y = y + 20
   end
 end
->>>>>>> Simple movement for the spider.:lib/centipede/enemy/spider.rb
