@@ -31,7 +31,7 @@ class Enemy::Spider < Enemy
       @current_sprite = next_sprite
       move!
     end
-    @current_sprite.draw(x, y, 0, 2, 2)
+    @current_sprite.draw(x, y, Z_ORDER, 2, 2)
   end 
   
   def next_sprite
