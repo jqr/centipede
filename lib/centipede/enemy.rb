@@ -14,4 +14,7 @@ class Enemy
   def draw    
   end
 
+  def die
+  end
+
 end
