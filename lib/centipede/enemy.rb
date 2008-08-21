@@ -2,6 +2,16 @@ class Enemy
   
   attr_accessor :x, :y, :image
 
+  class << self
+    def has_score(num)
+      @score = num
+    end
+
+    def score
+      @score
+    end
+  end
+
   def initialize(window, x, y)
     @window = window
     self.x = x
@@ -15,6 +25,7 @@ class Enemy
   end
 
   def die
+    Game.current_game.score += self.class.score
   end
 
 end
