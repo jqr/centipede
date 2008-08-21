@@ -13,17 +13,23 @@ class Enemy::Flea < Enemy
   end
 
   def start_position!(window)
-    self.x, self.y = rand(window.width/16)*16, 0    
+    self.x, self.y = rand(window.width / 16) * 16, 0    
   end
 
   def update(time)
     self.y = y + 2 + 5 * @hits
-    if y > @window.height
-      destroy
-    
-    elsif rand(7) == 1
-      Game.current_game.level.grid[grid_y][grid_x] = 4
+
+    if off_screen?
+      destroy 
+    else
+      if rand(7) == 1
+        Game.current_game.level.grid[grid_y][grid_x] = 4
+      end
     end
+  end
+  
+  def off_screen?
+    !Game.current_game.level.grid[grid_y]
   end
   
   def sprite
