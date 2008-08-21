@@ -26,6 +26,7 @@ class Enemy
 
   def die
     Game.current_game.score += self.class.score
+    Game.current_game.remove(self)
   end
 
 end
