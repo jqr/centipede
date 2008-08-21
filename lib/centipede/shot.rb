@@ -1,6 +1,8 @@
 class Shot
   Z_ORDER = 4
 
+  attr_reader :x, :y
+
   def initialize(window, x, y)
     @window = window
     @x = x
