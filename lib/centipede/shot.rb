@@ -6,6 +6,7 @@ class Shot
     @x = x
     @y = y
     @@image ||= Gosu::Image.new(window, File.join(GAME_DIR, 'images', 'shot.png'))
+    @window.play_sound('shot')
   end
 
   def draw
