@@ -11,7 +11,7 @@ class Player
   end
 
   def shoot
-
+    @window.play_sound('shoot')
   end
 
   attr_reader :x
