@@ -1,17 +1,23 @@
 class Enemy::Centipede < Enemy
   
-  attr_accessor :head, :segment, :moving_right
+
+  attr_accessor :head, :moving_right
 
   def initialize(window, segments=11)
     super(window, x, y)
     self.x = 0
     self.y = 0
     self.head = Gosu::Image.load_tiles(window, File.join(GAME_DIR, 'images', 'centipede', 'head.png'), 7, 8, false)
-    self.segment = Gosu::Image.load_tiles(window, File.join(GAME_DIR, 'images', 'centipede', 'segment.png'), 7, 8, false)
-    @current_head_frame = 0
-    @current_segment_frame = 0
+
+    @current_frame = 0
+
     @length = segments
+
     self.moving_right = true
+    @segments = []
+    1.upto(segments) do |i|
+      @segments << Segment.new(window, self)
+    end
   end
   
   def update(time)
@@ -54,15 +60,38 @@ class Enemy::Centipede < Enemy
   end
 
   def draw
+    self.head[@current_frame].draw(x, y, 0, 2, 2)
+    @current_frame += 1
+    if @current_frame >= self.segment.size
+      @current_frame = 0
+    end    
   end
 
-  def segment_at(x, y)
-  end
 
 
   class Segment < Enemy
-    def initialize(window)
+
+    def self.segment_tiles
+      @segment_tiles ||= Gosu::Image.load_tiles(window, File.join(GAME_DIR, 'images', 'centipede', 'segment.png'), 7, 8, false)            
+    end
+
+    attr_accessor :segment
+    
+    def initialize(window, owner)
       super(window, x, y)
+      self.segment = Segment.segment_tiles
+      @current_frame = 0
+    end
+
+    def draw
+      self.segment[@current_frame].draw(x, y, 0, 2, 2)
+      @current_frame += 1
+      if @current_frame >= self.segment.size
+        @current_frame = 0
+      end
+    end
+
+    def update(time)
     end
   end
 end
