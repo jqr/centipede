@@ -7,6 +7,7 @@ class Enemy::Spider < Enemy
     @current_sprite = jumping
     @wait = 0
     super
+    @window.play_sound('spider')
   end
   
   def update
