@@ -2,6 +2,8 @@ class Enemy::Spider < Enemy
 
   attr_accessor :jumping, :standing, :landing
   
+  has_score 300
+  
   def initialize(window)
     super(window, x, y)
     start_position!(window)
