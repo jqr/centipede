@@ -66,7 +66,7 @@ class Game
   end
 
   def run(ts=nil)
-    ts ||= Time.now
+    ts ||= Gosu::milliseconds
     if self.in_play?
       self.centipedes.each do |c|
         c.update(ts)
