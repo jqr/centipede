@@ -1,7 +1,6 @@
 class Enemy::Centipede < Enemy
   
-<<<<<<< HEAD:lib/centipede/enemy/centipede.rb
-  attr_accessor :head, :segment
+  attr_accessor :head, :segment, :moving_right
 
   def initialize(window, segments=11)
     super(window, x, y)
@@ -12,10 +11,38 @@ class Enemy::Centipede < Enemy
     @current_head_frame = 0
     @current_segment_frame = 0
     @length = segments
+    self.moving_right = true
   end
   
   def update(time)
-    
+    if moving_right? && can_move_right?
+      move_right
+    elsif moving_left? && can_move_left?
+      move_left
+    else
+      move_down
+    end
+  end
+  
+  def moving_right?
+    moving_right
+  end
+
+  def moving_left?
+    !moving_right
+  end
+  
+  def move_right
+    self.x = self.x + 16
+  end
+  
+  def move_left
+    self.x = self.x - 16
+  end
+  
+  def move_down
+    self.moving_right = !moving_right
+    self.y = self.y + 16
   end
 
   def can_move_right?
