@@ -13,7 +13,7 @@ class Shot
   end
 
   def update(ts)
-    @y = @y - 1
+    @y = @y - 20
 
     if @y < -6
       Game.current_game.remove_shot
