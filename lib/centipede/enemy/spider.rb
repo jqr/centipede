@@ -11,10 +11,12 @@ class Enemy::Spider < Enemy
     @current_sprite = standing
     @wait = 0
     @window.play_sound('spider')
+    @last_x_direction = []
+    @last_y_direction = []
   end
   
   def start_position!(window)
-    self.x, self.y = rand(window.width), 0
+    self.x, self.y = 0, window.height - rand(150)
   end
   
   def update(time)
@@ -26,10 +28,10 @@ class Enemy::Spider < Enemy
   end
   
   def animate
-    if @wait > 30
+    if @wait > 4
       @wait = 0
-      @current_sprite = next_sprite
       move!
+      next_sprite
     end
     @current_sprite.draw(x, y, Z_ORDER, 2, 2)
   end 
@@ -49,7 +51,64 @@ class Enemy::Spider < Enemy
   end
   
   def move!
-    self.x = rand(@window.width)
-    self.y = y + 20
+    self.x = 
+      case x_direction
+        when :left
+          @last_x_direction << :left
+          x - rand(10)
+        when :right
+          @last_x_direction << :right
+          x + rand(10)
+      end
+    
+    self.y =
+      case y_direction
+        when :up
+          @last_y_direction << :up
+          y - rand(10)
+        when :down
+          @last_y_direction << :down
+          y + rand(10)
+      end
+  end
+  
+  def y_direction
+    if y <= @window.height - 150
+      :down
+    elsif y >= @window.height - 30
+      :up
+    else
+      if @last_y_direction.empty?
+        [:up, :down][rand(2)]                         
+      else
+        if @last_y_direction.size == rand(5) + 2
+          [:up, :down].reject do |direction|
+            @last_y_direction.last == direction
+          end.first               
+        else
+          @last_y_direction.last
+        end
+      end
+    end
+  end
+  
+  def x_direction
+    if x <= 30
+      :right
+    elsif x >= @window.width - 30
+      :left
+    else
+      if @last_x_direction.empty?
+        [:left, :right][rand(2)]                         
+      else
+        if @last_x_direction.size == rand(5) + 2
+          [:left, :right].reject do |direction|
+            @last_x_direction.last == direction
+          end.first               
+        else
+          @last_x_direction.last
+        end
+      end
+    end
   end
 end
