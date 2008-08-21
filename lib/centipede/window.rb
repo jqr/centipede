@@ -9,7 +9,8 @@ class Window < Gosu::Window
     GosuExtras::setup_keyboard_constants(self)
     load_sounds
     @game = Game.new(self, Player.new(self))
-    @game.enemies << Enemy::Spider.new(self)  
+    @game.enemies << Enemy::Spider.new(self)
+    @game.enemies << Enemy::Flea.new(self)  
     self.sound = true
   end
   
