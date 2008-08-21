@@ -18,6 +18,12 @@ class Enemy::Flea < Enemy
 
   def update(time)
     self.y = y + 2 + 5 * @hits
+    if y > @window.height
+      destroy
+    
+    elsif rand(7) == 1
+      Game.current_game.level.grid[grid_y][grid_x] = 4
+    end
   end
   
   def sprite
