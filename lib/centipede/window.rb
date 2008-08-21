@@ -10,8 +10,6 @@ class Window < Gosu::Window
     GosuExtras::setup_keyboard_constants(self)
     load_sounds
     @spider = Enemy::Spider.new(self, 240, 256)  
-    load_images
-
     @player = Player.new(self)
   end
   
