@@ -39,13 +39,15 @@ class Shot
     end
 
     grid_x, grid_y = x / 16, y / 16
-    unless Game.current_game.level.open?(grid_x, grid_y)
-      health = Game.current_game.level.grid[grid_y][grid_x] - 1
-      Game.current_game.level.grid[grid_y][grid_x] = health > 0 ? health : nil 
-      Game.current_game.remove_shot
-      return true
+    if Game.current_game.level.grid[grid_y]
+      unless Game.current_game.level.open?(grid_x, grid_y)
+        health = Game.current_game.level.grid[grid_y][grid_x] - 1
+        Game.current_game.level.grid[grid_y][grid_x] = health > 0 ? health : nil 
+        Game.current_game.remove_shot
+        return true
+      end
     end
-
+    
     false
   end
 end
