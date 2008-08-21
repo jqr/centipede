@@ -68,6 +68,9 @@ class Game
   def run(ts=nil)
     ts ||= Time.now
     if self.in_play?
+      self.centipedes.each do |c|
+        c.update(ts)
+      end
       self.enemies.each do |e|
         e.update(ts)
       end
@@ -79,6 +82,9 @@ class Game
   def draw
     level.draw
     shot.draw if shot
+    self.centipedes.each do |c|
+      c.draw
+    end
     self.enemies.each do |e|
       e.draw
     end
