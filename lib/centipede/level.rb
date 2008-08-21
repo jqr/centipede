@@ -18,6 +18,14 @@ class Level
     25.times do
       grid[[1, rand(columns)].max][rand(rows)] = 4
     end
+    
+    # add_solid_column(0)
+  end
+
+  def add_solid_column(x)
+    columns.times do |column|
+      grid[column][x] = 4
+    end
   end
   
   def draw

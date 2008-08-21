@@ -20,9 +20,9 @@ class Shot
       Game.current_game.remove_shot
     end
     
-    check_for_hit(@x, @y) ||
+    check_for_hit(@x, @y + 14) ||
     check_for_hit(@x, @y + 7) ||
-    check_for_hit(@x, @y + 14)
+    check_for_hit(@x, @y)
   end
   
   def off_screen?
