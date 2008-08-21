@@ -40,15 +40,19 @@ class Enemy::Centipede < Enemy
   
   def move_right
     self.x = self.x + 16
+    @segments.each { |s| s.move_right }
   end
   
   def move_left
     self.x = self.x - 16
+    @segments.each { |s| s.move_left }
   end
   
   def move_down
+    @segments.each { |s| s.move_down }    
     self.moving_right = !moving_right
     self.y = self.y + 16
+
   end
 
   def can_move_right?
@@ -72,7 +76,7 @@ class Enemy::Centipede < Enemy
   class Segment < Enemy
 
     def self.segment_tiles
-      @segment_tiles ||= Gosu::Image.load_tiles(window, File.join(GAME_DIR, 'images', 'centipede', 'segment.png'), 7, 8, false)            
+      @segment_tiles ||= Gosu::Image.load_tiles(window, File.join(GAME_DIR, 'images', 'centipede', 'body.png'), 7, 8, false)            
     end
 
     attr_accessor :segment
@@ -92,6 +96,15 @@ class Enemy::Centipede < Enemy
     end
 
     def update(time)
+    end
+
+    def move_left
+    end
+
+    def move_right
+    end
+
+    def move_down
     end
   end
 end
