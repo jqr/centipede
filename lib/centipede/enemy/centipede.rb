@@ -22,6 +22,10 @@ class Enemy::Centipede < Enemy
   end
 
   
+  def sprite
+    self.head.first
+  end
+  
   def update(time)
     if time - last_move > 50
       if moving_right? && can_move_right?

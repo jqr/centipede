@@ -16,7 +16,7 @@ require 'centipede/player'
 require 'centipede/shot'
 
 class Game
-  attr_accessor :score, :player, :enemies, :shot, :level, :centipedes
+  attr_accessor :score, :player, :enemies, :shot, :level
 
   TILE_SIZE = 16
 
@@ -69,9 +69,6 @@ class Game
   def run(ts=nil)
     ts ||= Gosu::milliseconds
     if self.in_play?
-      self.centipedes.each do |c|
-        c.update(ts)
-      end
       self.enemies.each do |e|
         e.update(ts)
       end
@@ -83,9 +80,6 @@ class Game
   def draw
     level.draw
     shot.draw if shot
-    self.centipedes.each do |c|
-      c.draw
-    end
     self.enemies.each do |e|
       e.draw
     end
@@ -118,7 +112,7 @@ class Game
     self.level = Level.new(@window, @window.width / TILE_SIZE, @window.height / TILE_SIZE, TILE_SIZE, @current_level)
     self.enemies = []
     Game.current_game = self
-    self.centipedes = [Enemy::Centipede.new(@window)]    
+    self.enemies << Enemy::Centipede.new(@window)
   end
 
   private
