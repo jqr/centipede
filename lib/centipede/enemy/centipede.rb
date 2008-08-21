@@ -69,6 +69,15 @@ class Enemy::Centipede < Enemy
     Game.current_game.next_level
   end
 
+  def hit
+    if self.segments.empty?
+      self.die
+      Game.current_game.next_level
+    else
+      self.segment_hit(self.segments.size - 1)
+    end    
+  end
+
   def segment_hit(i)
     new_centipede = self.segments.slice!(i, self.segments.size)
     new_centipede.each { |s| s.die }
@@ -77,6 +86,7 @@ class Enemy::Centipede < Enemy
       c.segments = new_centipede[2..new_centipede.size]
       c.x = new_centipede[1].x
       c.y = new_centipede[1].y
+      Game.current_game.enemies << c
     end
     
   end
