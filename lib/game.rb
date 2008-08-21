@@ -37,14 +37,12 @@ class Game
     @start_time = nil
     @end_time = nil
     @window = window
-
-    self.level = Level.new(@window, @window.width / TILE_SIZE, @window.height / TILE_SIZE, TILE_SIZE, "1")
+    @current_level = 0
 
     self.player= player
-    self.enemies = []
     self.score = 0
     Game.current_game = self
-    self.centipedes = [Enemy::Centipede.new(@window)]
+    self.next_level
   end
 
   def start
@@ -113,6 +111,14 @@ class Game
         self.stop
       end
     end
+  end
+
+  def next_level
+    @current_level += 1
+    self.level = Level.new(@window, @window.width / TILE_SIZE, @window.height / TILE_SIZE, TILE_SIZE, @current_level)
+    self.enemies = []
+    Game.current_game = self
+    self.centipedes = [Enemy::Centipede.new(@window)]    
   end
 
   private
