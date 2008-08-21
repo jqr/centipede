@@ -28,6 +28,10 @@ class Window < Gosu::Window
   end
   
   def update
+    if button_down?(Gosu::Button::MsLeft) || button_down?(Gosu::Button::KbSpace)
+      Game.current_game.player.shoot
+    end
+    
     @game.run
   end
 
@@ -41,8 +45,6 @@ class Window < Gosu::Window
       close
     when Gosu::KbS
       self.sound = !sound
-    when Gosu::Button::MsLeft, Gosu::Button::KbSpace
-      Game.current_game.player.shoot
     end
   end
 end
