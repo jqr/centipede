@@ -1,7 +1,5 @@
 class Enemy::Centipede < Enemy
-  
-
-  attr_accessor :head, :segments
+  attr_accessor :head, :segments, :last_move
 
   def initialize(window, segment_size=11)
     super(window, x, y)
@@ -18,19 +16,24 @@ class Enemy::Centipede < Enemy
     1.upto(segment_size) do |i|
       self.segments << Segment.new(window, self)
     end
+    self.last_move = 0
   end
   
   def update(time)
-    if moving_right? && can_move_right?
-      move_right
-    elsif moving_left? && can_move_left?
-      move_left
-    else
-      move_down
+    if time - last_move > 50
+      if moving_right? && can_move_right?
+        move_right
+      elsif moving_left? && can_move_left?
+        move_left
+      else
+        move_down
+      end
+      self.last_move = time
     end
   end
 
   module Movement
+    
 
     def moving_right=(b)
       @moving_right = b
