@@ -9,8 +9,8 @@ class Window < Gosu::Window
     self.level = Level.new(self, width/TILE_SIZE, height/TILE_SIZE, TILE_SIZE)
     GosuExtras::setup_keyboard_constants(self)
     load_sounds
-    @spider = Enemy::Spider.new(self, 240, 256)  
-    @player = Player.new(self)
+    @game = Game.new(self, Player.new(self))
+    @game.enemies << Enemy::Spider.new(self, 240, 256)  
   end
   
   def load_sounds
@@ -27,13 +27,11 @@ class Window < Gosu::Window
   end
   
   def update
-    @spider.update
-    @player.update
+    @game.run()
   end
 
   def draw
-    @spider.draw
-    @player.draw
+    @game.draw()
   end
   
   def button_down(id)

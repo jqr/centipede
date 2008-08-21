@@ -17,7 +17,7 @@ class Player
   attr_reader :x
   attr_reader :y
 
-  def update
+  def update(time)
     mx = @window.mouse_x
     my = @window.mouse_y
     

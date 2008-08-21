@@ -10,7 +10,7 @@ class Enemy::Spider < Enemy
     @window.play_sound('spider')
   end
   
-  def update
+  def update(time)
     @wait += 1
   end
   

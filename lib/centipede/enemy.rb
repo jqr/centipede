@@ -8,7 +8,7 @@ class Enemy
     self.y = y
   end
   
-  def update
+  def update(time)
   end
   
   def draw    
