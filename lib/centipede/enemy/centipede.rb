@@ -1,7 +1,7 @@
 class Enemy::Centipede < Enemy
   
 
-  attr_accessor :head, :moving_right
+  attr_accessor :head
 
   def initialize(window, segments=11)
     super(window, x, y)
@@ -29,39 +29,66 @@ class Enemy::Centipede < Enemy
       move_down
     end
   end
-  
-  def moving_right?
-    moving_right
-  end
 
-  def moving_left?
-    !moving_right
+  module Movement
+
+    def moving_right=(b)
+      @moving_right = b
+    end
+
+    def moving_right
+      @moving_right
+    end
+
+    def moving_right?
+      moving_right
+    end
+
+    def moving_left?
+      !moving_right
+    end
+    
+    def move_right
+      self.x = self.x + 16
+    end
+    
+    def move_left
+      self.x = self.x - 16
+    end
+    
+    def move_down
+      self.moving_right = !moving_right
+      self.y = self.y + 16
+
+    end
+
+    def can_move_right?
+      @window.game.level.open?(grid_x + 1, grid_y)
+    end
+
+    def can_move_left?
+      @window.game.level.open?(grid_x - 1, grid_y)
+    end
+    
   end
-  
+  include Enemy::Centipede::Movement
+
   def move_right
-    self.x = self.x + 16
-    @segments.each { |s| s.move_right }
+    super
+    self.segments.each { |s| s.head_moved(:right) }    
   end
-  
+
   def move_left
-    self.x = self.x - 16
-    @segments.each { |s| s.move_left }
+    super
+    self.segments.each { |s| s.head_moved(:left) }        
+  end
+
+  def move_down
+    super
+    self.segments.each { |s| s.head_moved(:down) }            
   end
   
-  def move_down
-    @segments.each { |s| s.move_down }    
-    self.moving_right = !moving_right
-    self.y = self.y + 16
 
-  end
-
-  def can_move_right?
-    @window.game.level.open?(grid_x + 1, grid_y)
-  end
-
-  def can_move_left?
-    @window.game.level.open?(grid_x - 1, grid_y)
-  end
 
   def draw
     self.head[@current_frame].draw(x, y, 0, 2, 2)
@@ -83,7 +110,9 @@ class Enemy::Centipede < Enemy
     
     def initialize(window, owner)
       super(window, x, y)
+
       self.segment = Segment.segment_tiles(window)
+      self.moving_right = true
       @current_frame = 0
     end
 
@@ -97,14 +126,28 @@ class Enemy::Centipede < Enemy
 
     def update(time)
     end
+    
+    include Enemy::Centipede::Movement
 
-    def move_left
+    def forced_move(dir)
+      check_method = "can_move_#{dir}?".to_sym
+      move_method = :"move_#{dir}"
+      if self.send check_method
+        self.send move_method
+      else
+        self.move_down
+        self.moving_right = !self.moving_right
+      end
     end
 
-    def move_right
+    def head_moved(dir)
+      case dir
+      when :right
+        self.forced_move((self.moving_left?) ? :left : :right)                
+      else
+        self.forced_move((self.moving_right?) ? :right : :left)        
+      end
     end
 
-    def move_down
-    end
   end
 end
