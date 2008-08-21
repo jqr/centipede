@@ -116,8 +116,4 @@ class Enemy::Spider < Enemy
     end
   end
   
-  def hit
-    destroy
-  end
-  
 end

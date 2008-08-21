@@ -112,7 +112,9 @@ class Game
     self.level = Level.new(@window, @window.width / TILE_SIZE, @window.height / TILE_SIZE, TILE_SIZE, @current_level)
     self.enemies = []
     Game.current_game = self
-    self.enemies << Enemy::Centipede.new(@window)
+    centipede = Enemy::Centipede.new(@window)
+    self.enemies << centipede
+    self.enemies += centipede.segments
   end
 
   private

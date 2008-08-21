@@ -42,6 +42,10 @@ class Enemy
     (self.x..(self.x + sprite.width * 2)).include?(x) && (self.y..(self.y + sprite.height * 2)).include?(y)
   end
 
+  def hit
+    destroy
+  end
+
   def destroy
     Game.current_game.enemies.reject! { |e| e == self }
   end
