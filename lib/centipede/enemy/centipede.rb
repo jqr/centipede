@@ -75,7 +75,7 @@ class Enemy::Centipede < Enemy
 
   class Segment < Enemy
 
-    def self.segment_tiles
+    def self.segment_tiles(window)
       @segment_tiles ||= Gosu::Image.load_tiles(window, File.join(GAME_DIR, 'images', 'centipede', 'body.png'), 7, 8, false)            
     end
 
@@ -83,7 +83,7 @@ class Enemy::Centipede < Enemy
     
     def initialize(window, owner)
       super(window, x, y)
-      self.segment = Segment.segment_tiles
+      self.segment = Segment.segment_tiles(window)
       @current_frame = 0
     end
 
