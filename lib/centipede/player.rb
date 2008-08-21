@@ -7,7 +7,7 @@ class Player
   end
 
   def draw
-    @image.draw(@x - @image.width/2, @y - @image.height/2, 0, 2, 2)
+    @image.draw(@x - @image.width, @y - @image.height, 0, 2, 2)
   end
 
   def shoot
@@ -21,7 +21,7 @@ class Player
     mx = @window.mouse_x
     my = @window.mouse_y
     
-    @x = [[@image.width * 2, mx].max, @window.width - @image.width * 2].min
-    @y = [[@window.height - @image.height * 2, my].min, @window.height - 150].max
+    @x = [[@image.width, mx].max, @window.width - @image.width].min
+    @y = [[@window.height - @image.height, my].min, @window.height - 150].max
   end
 end
