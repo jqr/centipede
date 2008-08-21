@@ -37,10 +37,10 @@ class Enemy::Segment < Enemy
     @owner.segment_hit(@segment_index)
   end
   
-  def forced_move(dir)
+  def dependent_move(dir, force=false)
     check_method = "can_move_#{dir}?".to_sym
     move_method = :"move_#{dir}"
-    if self.send check_method
+    if force || self.send(check_method)
       self.send move_method
     else
       self.move_down
@@ -48,12 +48,12 @@ class Enemy::Segment < Enemy
 
   end
 
-  def head_moved(dir)
+  def head_moved(dir, force=false)
     case dir
     when :right
-      self.forced_move((self.moving_left?) ? :left : :right)                
+      self.dependent_move((self.moving_left?) ? :left : :right, force)
     else
-      self.forced_move((self.moving_right?) ? :right : :left)        
+      self.dependent_move((self.moving_right?) ? :right : :left, force)
     end
   end
 
