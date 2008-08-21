@@ -28,5 +28,13 @@ class Enemy
     Game.current_game.score += self.class.score
     Game.current_game.remove(self)
   end
+  
+  def grid_x
+    x / @window.game.level.tile_size
+  end
+  
+  def grid_y
+    y / @window.game.level.tile_size
+  end
 
 end
