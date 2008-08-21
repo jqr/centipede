@@ -1,9 +1,9 @@
 class Enemy::Centipede < Enemy
   
 
-  attr_accessor :head
+  attr_accessor :head, :segments
 
-  def initialize(window, segments=11)
+  def initialize(window, segment_size=11)
     super(window, x, y)
     self.x = 0
     self.y = 0
@@ -11,12 +11,12 @@ class Enemy::Centipede < Enemy
 
     @current_frame = 0
 
-    @length = segments
+    @length = segment_size
 
     self.moving_right = true
-    @segments = []
-    1.upto(segments) do |i|
-      @segments << Segment.new(window, self)
+    self.segments = []
+    1.upto(segment_size) do |i|
+      self.segments << Segment.new(window, self)
     end
   end
   
@@ -63,11 +63,11 @@ class Enemy::Centipede < Enemy
     end
 
     def can_move_right?
-      @window.game.level.open?(grid_x + 1, grid_y)
+      Game.current_game.level.open?(grid_x + 1, grid_y)
     end
 
     def can_move_left?
-      @window.game.level.open?(grid_x - 1, grid_y)
+      Game.current_game.level.open?(grid_x - 1, grid_y)
     end
     
   end
@@ -91,7 +91,7 @@ class Enemy::Centipede < Enemy
   def draw
     self.head[@current_frame].draw(x, y, Z_ORDER, 2, 2)
     @current_frame += 1
-    if @current_frame >= self.segment.size
+    if @current_frame >= self.head.size
       @current_frame = 0
     end    
   end
@@ -108,7 +108,8 @@ class Enemy::Centipede < Enemy
     
     def initialize(window, owner)
       super(window, x, y)
-
+      self.x = 0
+      self.y = 0
       self.segment = Segment.segment_tiles(window)
       self.moving_right = true
       @current_frame = 0
