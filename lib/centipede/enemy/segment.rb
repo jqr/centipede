@@ -8,13 +8,15 @@ class Enemy::Segment < Enemy
 
     attr_accessor :segment
     
-    def initialize(window, owner, sx, sy)
+    def initialize(window, owner, sx, sy, segindex)
       super(window, sx, sy)
       self.x = sx
       self.y = sy
       self.segment = Segment.segment_tiles(window)
       self.moving_right = true
       @current_frame = 0
+      @segment_index = segindex
+      @owner = owner
     end
 
     def draw
@@ -48,6 +50,10 @@ class Enemy::Segment < Enemy
       else
         self.forced_move((self.moving_right?) ? :right : :left)        
       end
+    end
+
+    def hit
+      @owner.segment_hit(@segment_index)
     end
 
   end

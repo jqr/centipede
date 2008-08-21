@@ -4,8 +4,8 @@ class Enemy::Centipede < Enemy
 
   def initialize(window, segment_size = 11)
     super(window, x, y)
-    self.x = 8 * segment_size
-    self.y = 0
+    self.x = (8 * segment_size)
+    self.y =  0
     self.head = Gosu::Image.load_tiles(window, File.join(GAME_DIR, 'images', 'centipede', 'head.png'), 7, 8, false)
 
 
@@ -16,10 +16,11 @@ class Enemy::Centipede < Enemy
     self.moving_right = true
     self.segments = []
     1.upto(segment_size) do |i|
-      self.segments << Enemy::Segment.new(window, self, (segment_size - (i + 1)) * 8, 0)
+      self.segments << Enemy::Segment.new(window, self, (segment_size - (i + 1)) * 8, 0, i - 1)
     end
     self.last_move = 0
   end
+
   
   def update(time)
     if time - last_move > 50
@@ -66,6 +67,18 @@ class Enemy::Centipede < Enemy
   def die
     super
     Game.current_game.next_level
+  end
+
+  def segment_hit(i)
+    new_centipede = self.segments.slice!(i, self.segments.size)
+    new_centipede.each { |s| s.die }
+    if new_centipede.size > 1 
+      c = Enemy::Centipede.new(@window, 0)
+      c.segments = new_centipede[2..new_centipede.size]
+      c.x = new_centipede[1].x
+      c.y = new_centipede[1].y
+    end
+    
   end
 
 
