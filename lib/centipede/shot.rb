@@ -1,4 +1,5 @@
 class Shot
+  Z_ORDER = 4
 
   def initialize(window, x, y)
     @x = x
@@ -7,9 +8,7 @@ class Shot
   end
 
   def draw
-    @@image.draw(@x, @y, 
-    		   4, # TODO: Real z-order
-2, 2)
+    @@image.draw(@x, @y, Z_ORDER, 2, 2)
   end
 
   def update(ts)

@@ -88,10 +88,8 @@ class Enemy::Centipede < Enemy
     self.segments.each { |s| s.head_moved(:down) }            
   end
   
-
-
   def draw
-    self.head[@current_frame].draw(x, y, 0, 2, 2)
+    self.head[@current_frame].draw(x, y, Z_ORDER, 2, 2)
     @current_frame += 1
     if @current_frame >= self.segment.size
       @current_frame = 0
@@ -117,7 +115,7 @@ class Enemy::Centipede < Enemy
     end
 
     def draw
-      self.segment[@current_frame].draw(x, y, 0, 2, 2)
+      self.segment[@current_frame].draw(x, y, Z_ORDER, 2, 2)
       @current_frame += 1
       if @current_frame >= self.segment.size
         @current_frame = 0

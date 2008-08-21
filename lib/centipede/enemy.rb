@@ -1,4 +1,5 @@
 class Enemy
+  Z_ORDER = 1
   
   attr_accessor :x, :y, :image
 

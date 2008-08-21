@@ -1,4 +1,5 @@
 class Player
+  Z_ORDER = 0
   def initialize(window)
     @image = Gosu::Image.new(window, File.join(GAME_DIR, 'images', 'player.png'))
     @x = window.width/2
@@ -7,7 +8,7 @@ class Player
   end
 
   def draw
-    @image.draw(@x - @image.width, @y - @image.height, 0, 2, 2)
+    @image.draw(@x - @image.width, @y - @image.height, Z_ORDER, 2, 2)
   end
 
   def shoot
