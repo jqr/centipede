@@ -10,16 +10,6 @@ require 'centipede/enemy/spider'
 require 'centipede/enemy/centipede'
 require 'centipede/level'
 require 'centipede/player'
-require 'centipede/game'
 require 'centipede/shot'
 
-class Centipede
-
-  def self.logger
-    @logger || Logger.new(STDOUT)
-  end
-  
-  def self.run
-    Window.new.show
-  end
-end
+require 'game'

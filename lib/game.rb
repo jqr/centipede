@@ -1,8 +1,15 @@
 class Game
   attr_accessor :score, :player, :enemies, :shots, :level, :centipedes
 
+  TILE_SIZE = 16
 
-  TILE_SIZE = 16   
+  def self.logger
+    @logger || Logger.new(STDOUT)
+  end
+  
+  def self.run
+    Window.new.show
+  end
 
   def self.current_game
     @game
