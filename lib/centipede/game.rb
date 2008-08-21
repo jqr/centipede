@@ -13,7 +13,7 @@ class Game
     self.player= player
     self.enemies = []
     self.shots = []
-    self.player = player
+    self.score = 0
     Game.current_game = self
   end
 
