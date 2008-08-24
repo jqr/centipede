@@ -21,8 +21,9 @@ class Shot
     if off_screen?
       Game.current_game.remove_shot
     end
-    
-    check_for_hit_on_enemies(@x, @y, 2, 7) ||
+
+    # FIXME: this allows for hitting a enemy that is behind a mushroom
+   check_for_hit_on_enemies(@x, @y, 2, 7) ||
       check_for_hit_on_mushrooms(@x, @y, 2, 7)
   end
   
@@ -45,6 +46,8 @@ class Shot
         return true
       end
     end
+    
+    false
   end
 
   def check_for_hit_on_mushrooms(x, y, steps = 0, step_size = 7)
@@ -59,7 +62,6 @@ class Shot
         end
       end      
     end
-
     
     false
   end
